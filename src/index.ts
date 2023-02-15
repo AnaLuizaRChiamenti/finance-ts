@@ -27,8 +27,27 @@ function printTransactions(wallet: Wallet) {
 
 }
 
+function balance(wallet: Wallet): number {
+
+    const { transactions } = wallet
+    let saldo = 0
+
+    transactions.forEach((valor) => {
+        if(valor.type === 'C'){
+            saldo += valor.value
+        } else {
+            saldo -= valor.value
+        }
+    })
+
+    return saldo;
+
+}
+
 addTransaction(WalletUser, { description: "mercado", type: "D", value: 500 })
 addTransaction(WalletUser, { description: "padaria", type: "D", value: 150 })
-addTransaction(WalletUser, { description: "mecanico", type: "C", value: 1500 })
+addTransaction(WalletUser, { description: "salario", type: "C", value: 1500 })
 
-printTransactions(WalletUser)
+/* printTransactions(WalletUser)*/
+const saldo = balance(WalletUser)
+console.log(`Seu saldo é: R$${saldo} reais`);
